@@ -7,9 +7,6 @@ We aim to store the performance results of operators (e.g., Layer Norm and GEMM)
 - Results should be easily comparable across different hardware types.
 - Operator performance can vary depending on tensor shapes and data types.
 
-  
-### README: AI Operator Performance Database
-
 #### Purpose
 This database is built to store and manage performance results of AI operators (like Layer Norm and GEMM) and their sequences. It handles changes in hardware and software, making it easy to compare results across different setups.
 

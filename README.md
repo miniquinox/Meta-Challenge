@@ -1,25 +1,35 @@
 ### README: Database Design for AI Operator Performance Results
 
-#### Overview
-This database is designed to store and manage the performance results of various AI operators (e.g., Layer Norm, GEMM) and sequences of these operators represented as dependency graphs of input and output tensors. It is structured to accommodate changes in hardware configurations, software implementations, and varying tensor shapes and data types. Additionally, it ensures that results can be easily compared across different hardware types.
+#### Question:   
+We aim to store the performance results of operators (e.g., Layer Norm and GEMM) and series of operators represented as dependency graphs of input and output tensors. Please design a good database. For example, note that a well-designed database should take into account the following factors.
+- The hardware configuration of future AI platforms can change (e.g., clock rate adjustments).
+- Software implementations may be updated (e.g., improved Layer Norm kernel development).
+- Results should be easily comparable across different hardware types.
+- Operator performance can vary depending on tensor shapes and data types.
+
+  
+### README: AI Operator Performance Database
+
+#### Purpose
+This database is built to store and manage performance results of AI operators (like Layer Norm and GEMM) and their sequences. It handles changes in hardware and software, making it easy to compare results across different setups.
 
 #### Key Features
-1. **Flexibility**: Supports evolving hardware configurations and software updates.
-2. **Comparability**: Facilitates easy comparison of performance results across different hardware types.
-3. **Detailed Records**: Captures variations in operator performance based on tensor shapes and data types.
+1. **Flexibility**: Adapts to new hardware and software updates.
+2. **Comparability**: Allows easy comparison of results across different hardware.
+3. **Detailed Records**: Tracks performance based on tensor shapes and data types.
 
-#### Database Schema
+#### Database Structure
 
-The database schema includes the following main tables:
+The database includes these main tables:
 
-1. **Operators**: Stores details of individual operators.
-2. **PerformanceResults**: Records the performance metrics for each operator.
-3. **HardwareConfigurations**: Captures the details of different hardware setups.
-4. **SoftwareImplementations**: Stores information about various software versions and implementations.
-5. **TensorShapes**: Describes the shapes and data types of tensors used in the performance tests.
-6. **OperatorDependencies**: Represents the dependency graph of operators using input and output tensors.
+1. **Operators**: Details of each operator.
+2. **PerformanceResults**: Performance metrics for each operator.
+3. **HardwareConfigurations**: Different hardware setups.
+4. **SoftwareImplementations**: Various software versions.
+5. **TensorShapes**: Shapes and data types of tensors.
+6. **OperatorDependencies**: Dependency graph of operators.
 
-#### Tables and Relationships
+#### Table Details
 
 - **Operators**: 
   - `operator_id` (Primary Key)
@@ -61,7 +71,7 @@ The database schema includes the following main tables:
   - `input_tensor_id` (Foreign Key)
   - `output_tensor_id` (Foreign Key)
 
-#### Mermaid Diagram
+#### Database Diagram
 
 ```mermaid
 erDiagram
@@ -118,13 +128,13 @@ erDiagram
     Operators ||--o{ OperatorDependencies : "depends on"
 ```
 
-### Usage
+### How to Use
 
-1. **Adding New Operators**: Insert operator details into the `Operators` table.
-2. **Recording Performance Results**: Insert performance data into the `PerformanceResults` table, linking to the appropriate operator, hardware configuration, software implementation, and tensor shape.
-3. **Updating Hardware Configurations**: Modify the `HardwareConfigurations` table as new hardware setups are introduced.
-4. **Updating Software Implementations**: Insert new software versions and descriptions into the `SoftwareImplementations` table.
-5. **Defining Tensor Shapes**: Add new tensor shapes and data types to the `TensorShapes` table.
-6. **Defining Operator Dependencies**: Insert dependency relationships into the `OperatorDependencies` table to represent the flow of tensors between operators.
+1. **Add New Operators**: Insert operator details into `Operators`.
+2. **Record Performance Results**: Insert data into `PerformanceResults`, linking to the relevant operator, hardware, software, and tensor shape.
+3. **Update Hardware**: Modify `HardwareConfigurations` for new hardware.
+4. **Update Software**: Add new versions to `SoftwareImplementations`.
+5. **Define Tensor Shapes**: Add new shapes and types to `TensorShapes`.
+6. **Set Operator Dependencies**: Insert dependencies into `OperatorDependencies`.
 
-This design ensures that all necessary details are captured and provides a flexible framework for storing and comparing AI operator performance results across various hardware and software environments.
+This setup captures all necessary details and provides an easy-to-use framework for storing and comparing AI operator performance across various hardware and software setups.
